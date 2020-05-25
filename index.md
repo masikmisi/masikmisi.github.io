@@ -1,5 +1,3 @@
-♥ ♥ ♥ Esztó ♥ ♥ ♥
-
 
 ## Welcome to GitHub Pages
 
