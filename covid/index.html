@@ -1,0 +1,46 @@
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="keywords" content="p5.js, p5.js web editor, web editor, processing, code editor" />
+      <meta name="description" content="A web editor for p5.js, a JavaScript library with the goal of making coding accessible to artists, designers, educators, and beginners." />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.4/addons/p5.dom.min.js"></script>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <style>
+        body {background-color:white;}
+        h2   {
+        font-family: 'Roboto';
+        color: rgb(77, 77, 78);
+       font-weight: 100;
+        position:relative;
+        }
+       .root-app{
+       position:relative;
+       width:auto;
+       }
+     .main{
+      width: 600px;
+      margin-left: 40px;
+      font-family: 'Roboto';
+      color:rgb(57, 57, 58);
+
+     }
+        </style>
+    </head>
+    <body><div class="main">
+      <h2>How fast coronavirus spreads in different countries?</h2>
+      By the time a <strong style="color:teal">&#8226; teal dot</strong> reaches the end of the line one person is infected with COVID19.
+      By the time a <strong style="color:rgb(90,20,100)">&#07; purple dot</strong> reaches the end of the line one person dies because of COVID19.
+      </p>
+      <div id="root" class="root-app">
+      </div>
+      </div>>
+      <script src='covid-speed.js'></script>
+      
+    </body>
+  </html>
+  
