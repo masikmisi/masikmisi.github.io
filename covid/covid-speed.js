@@ -8,7 +8,7 @@ function preload() {
   
   // Get the most recent earthquake in the database
   let url =  '/covid19.json';
-  let covidsummary='summary.json';
+  let covidsummary='covid/summary.json';
   //let covidsummary = "https://api.covid19api.com/summary";
   summary = loadJSON(covidsummary);
   //covid = loadJSON(url);
