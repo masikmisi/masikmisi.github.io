@@ -4,13 +4,16 @@ let infectionRate;
 let speed=0;
 let dot;
 let dotArray;
+let w = 600;
+  let h = 1600;
+  let margin = 5;
 function preload() {
   
   // Get the most recent earthquake in the database
   let url =  '/covid19.json';
-  let covidsummary = 'summary.json';
+  //let covidsummary = 'summary.json';
   //let covidsummary='masikmisi.github.io/blob/master/covid/summary.json';
-  //let covidsummary = "https://api.covid19api.com/summary";
+  let covidsummary = "https://api.covid19api.com/summary";
   summary = loadJSON(covidsummary);
   //covid = loadJSON(url);
 }
@@ -18,7 +21,8 @@ function preload() {
 function setup() {
   //noLoop();
   frameRate(24);
-  let canvas = createCanvas(600,1600);
+  
+  let canvas = createCanvas(w,h);
   canvas.parent('root');
   textFont('Roboto');
   textSize(14);
@@ -50,7 +54,7 @@ for ( i=0; i<summary.Countries.length; i++){
   let infectionRate = summary.Countries[i].NewConfirmed;
   let dRate = summary.Countries[i].NewDeaths;
   if (infectionRate != 0 && dRate != 0){
-  let infectionPerMinute=((infectionRate/24)/60);
+  let infectionPerMinute=infectionRate/24/60;
   let finalinfspeed= map(infectionPerMinute,0, 1440,0, width);
  
   dot = new covid19(country, finalinfspeed, infectionPerMinute, index,inf);
@@ -73,8 +77,8 @@ for ( i=0; i<summary.Countries.length; i++){
   let deathRate = summary.Countries[i].NewDeaths;
   let infR = summary.Countries[i].NewConfirmed;
   if (deathRate != 0 && infR != 0){
-  let deathPerMinute=((deathRate/24)/60);
-  let finaldspeed= map(deathPerMinute,0, 1440,0, width+10);
+  let deathPerMinute=deathRate/24/60;
+  let finaldspeed= map(deathPerMinute,0, 1440,0, width);
  
   da = new covid19(country, finaldspeed, deathPerMinute, dindex, d);
   deathRateArray.push(da); 
@@ -91,7 +95,8 @@ for ( i=0; i<summary.Countries.length; i++){
 function draw() {
   clear();
   background(255);
-  
+  //text(round(round(millis(),0)/1000,0), 0,100,180,40);
+
   for (i=0; i<12;i++){
     
     dotArray[i].display();
@@ -113,7 +118,7 @@ function draw() {
 class covid19  {
   constructor(country,finalspeed, infectionRate, id, rateType) {
     this.country = country;
-    this.x = 0;
+    this.x = 0+margin;
     this.xlabel = 10;
     this.y = 30+(id*100);
     this.contnum = 0;
@@ -124,7 +129,7 @@ class covid19  {
   }
 
   move() {
-    if(this.x>=width+5){
+    if(this.x>=width){
       this.x=0;
       this.contnum++;
 
@@ -136,10 +141,10 @@ class covid19  {
   display() {
     noStroke();
     if (this.rateType !="deathRate"){
-      textSize(16);
+      textSize(14);
       fill(57,50,50);
-    text(this.country, this.xlabel, this.y+15, 300,200);
-    textSize(12);
+      text(this.country, this.xlabel, this.y+15, 300,200);
+      textSize(12);
     } else {
       textSize(12);
     }
@@ -153,7 +158,7 @@ class covid19  {
     
     if (this.rateType!="deathRate"){
     stroke(12,12,12);
-    line(0,this.y,width,this.y);
+    line(5,this.y,width,this.y);
     noStroke();
     }
     
@@ -178,25 +183,42 @@ class covid19  {
 
      }
     
-    //print(xx);
+    
     if (this.rateType != "deathRate"){
-    //textStyle(BOLD);
-    text(this.contnum+" new case(s)",this.xlabel+80, this.y+18,180,40);
-    //textStyle(NORMAL);
-    fill(30,30,30);
-    text(infectText+" new case(s) "+"per minute", this.xlabel+80,this.y+36, 180,40);
-   
+      if (this.contnum <2) {
+      
+      
+      text(this.contnum+" new case",this.xlabel+80, this.y+18,180,40);
+      fill(30,30,30);
+      text(infectText+" new cases "+"per minute", this.xlabel+80,this.y+36, 180,40);
 
     } else {
-      //textStyle(BOLD);
-      text(this.contnum+" death(s)",this.xlabel+260, this.y+18,180,40);
-      //textStyle(NORMAL);
-      fill(30,30,30);
-      text(infectText+" death(s) "+"per minute", this.xlabel+260,this.y+36, 200,40);
+
       
+      text(this.contnum+" new cases",this.xlabel+80, this.y+18,180,40);
+      fill(30,30,30);
+      text(infectText+" new cases "+"per minute", this.xlabel+80,this.y+36, 180,40);
 
     }
-    //text(round(millis(),0)/1000, this.xlabel,this.y+70,180,40);
+
+
+    } else {
+      if (this.contnum<2){
+
+      text(this.contnum+" death",this.xlabel+260, this.y+18,180,40);
+      fill(30,30,30);
+      text(infectText+" deaths "+"per minute", this.xlabel+260,this.y+36, 200,40);
+      } else{
+        text(this.contnum+" deaths",this.xlabel+260, this.y+18,180,40);
+      
+        fill(30,30,30);
+  
+        text(infectText+" deaths "+"per minute", this.xlabel+260,this.y+36, 200,40);
+
+
+      }
+    }
+    
   }
   
 }
