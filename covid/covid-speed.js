@@ -6,7 +6,7 @@ let dot;
 let dotArray;
 let countryArray = ['Germany', 'Canada', 'Brazil','Hungary', 'Bulgaria'];
 let w = 600;
-  let h = 3600;
+  let h = 600;
   let margin = 5;
 function preload() {
   
