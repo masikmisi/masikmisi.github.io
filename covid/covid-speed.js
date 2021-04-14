@@ -4,6 +4,7 @@ let infectionRate;
 let speed=0;
 let dot;
 let dotArray;
+let countryArray = ['Germany', 'Canada', 'Brazil','Hungary', 'Bulgaria'];
 let w = 600;
   let h = 3600;
   let margin = 5;
@@ -27,33 +28,18 @@ function setup() {
   textFont('Roboto');
   textSize(14);
   
- 
-  var tempMaxRate = 0;
-
-
-
-for(i=0; i<summary.Countries.length; i++){
-if (summary.Countries[i].NewConfirmed > tempMaxRate){
-
-  tempMaxRate = summary.Countries[i].NewConfirmed;
-
-} else {
-
-}
-
-
-}
-
+//infectionRate
 dotArray = new Array();
 let index = 0;
 let inf = "infectionRate";
 for ( i=0; i<summary.Countries.length; i++){ 
 
-  country = summary.Countries[i].Country;
+  let country = new String(summary.Countries[i].Country);
   //get the infection number for this day
   let infectionRate = summary.Countries[i].NewConfirmed;
   let dRate = summary.Countries[i].NewDeaths;
-  if (infectionRate != 0 && dRate != 0){
+  if (infectionRate != 0 && dRate != 0 &&
+    (country == 'Germany' || country=='Hungary' || country=='Italy' || country=='Brazil' || country == 'Austria')){
   let infectionPerMinute=infectionRate/24/60;
   let finalinfspeed= map(infectionPerMinute,0, 1440,0, width);
  
@@ -76,7 +62,8 @@ for ( i=0; i<summary.Countries.length; i++){
   //get the infection number for this day
   let deathRate = summary.Countries[i].NewDeaths;
   let infR = summary.Countries[i].NewConfirmed;
-  if (deathRate != 0 && infR != 0){
+  if (deathRate != 0 && infR != 0  &&
+    (country == 'Germany' || country=='Hungary' || country=='Italy' || country=='Brazil' || country == 'Austria')){
   let deathPerMinute=deathRate/24/60;
   let finaldspeed= map(deathPerMinute,0, 1440,0, width);
  
@@ -97,14 +84,14 @@ function draw() {
   background(255);
   //text(round(round(millis(),0)/1000,0), 0,100,180,40);
 
-  for (i=0; i<12;i++){
+  for (i=0; i<dotArray.length;i++){
     
     dotArray[i].display();
     dotArray[i].move();
     
   }
 
-  for (k=0; k<12;k++){
+  for (k=0; k<deathRateArray.length;k++){
     
     deathRateArray[k].display();
     deathRateArray[k].move();
