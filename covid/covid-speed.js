@@ -5,7 +5,7 @@ let speed=0;
 let dot;
 let dotArray;
 let w = 600;
-  let h = 1600;
+  let h = 3600;
   let margin = 5;
 function preload() {
   
